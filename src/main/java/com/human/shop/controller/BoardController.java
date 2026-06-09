@@ -62,7 +62,7 @@ public class BoardController {
 
         // 첨부파일 확인
         for (MultipartFile file : files) {
-
+            int a =10;
             System.out.println("파일명 : " + file.getOriginalFilename());
             System.out.println("크기 : " + file.getSize());
 
