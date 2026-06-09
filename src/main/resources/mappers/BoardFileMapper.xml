@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.shop.mapper_mybatis.BoardFileMapper">
+
+
+    <!-- 파일 저장 -->
+    <insert id="insertFile">
+        INSERT INTO board_file(
+            board_id,
+            original_name,
+            saved_name,
+            file_path,
+            file_size
+        )
+        VALUES(
+            #{boardId},
+            #{originalName},
+            #{savedName},
+            #{filePath},
+            #{fileSize}
+        )
+    </insert>
+
+    <!-- 게시글 파일 조회 -->
+    <select id="findByBoardId"
+            resultType="com.human.shop.vo.BoardFileVO">
+        SELECT
+            id,
+            board_id,
+            original_name,
+            saved_name,
+            file_path,
+            file_size,
+            created_at
+        FROM board_file
+        WHERE board_id = #{boardId}
+        ORDER BY id DESC
+    </select>
+
+        <!-- 게시글 파일 조회 -->
+    <select id="findByBoardOneId"
+            resultType="com.human.shop.vo.BoardFileVO">
+        SELECT
+            id,
+            board_id,
+            original_name,
+            saved_name,
+            file_path,
+            file_size,
+            created_at
+        FROM board_file
+        WHERE board_id = #{boardId}
+        ORDER BY id DESC
+    </select>
+
+    <delete id="deleteByBoardOneId"
+        parameterType="Long">
+        DELETE 
+        FROM board_file
+        WHERE board_id = #{boardId}
+    </delete>
+</mapper>

@@ -1,0 +1,40 @@
+-- 게시글 테이블
+CREATE TABLE board (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    writer VARCHAR(100) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT,
+    view_count INT NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (id)
+);
+
+-- 첨부파일 테이블
+CREATE TABLE board_file (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    board_id BIGINT NOT NULL,
+    original_name VARCHAR(255) NOT NULL,
+    saved_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(500) NOT NULL,
+    file_size BIGINT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_board_file_board
+        FOREIGN KEY (board_id)
+        REFERENCES board(id)
+        ON DELETE CASCADE
+);
+
+-- 회원테이블
+CREATE TABLE member (
+    login_id VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,  --필수는 아니지만 꼭 해야 납품이 된다
+    address VARCHAR(255),
+    phone VARCHAR(50),
+    email VARCHAR(100),
+    role VARCHAR(30) DEFAULT 'USER'  -- 계정별 권한 USER ADMIN
+);
